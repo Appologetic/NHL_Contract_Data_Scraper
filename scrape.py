@@ -58,6 +58,6 @@ for index, row in stats.iterrows():
         stats = stats.drop(index)
 print("could not find cap data for players: " + str(noDataFound))
 
-#save complete data to csv
-cleanedFilepath = "complete_"+filepath
-stats.to_csv(cleanedFilepath)
+#save complete data to excel
+cleanedFilepath = "complete_"+ date + ".xlsx"
+stats.to_excel(cleanedFilepath)
