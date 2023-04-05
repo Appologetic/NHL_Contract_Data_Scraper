@@ -65,13 +65,15 @@ def dataSort(cutoff = -1):
 
 #function to save data to spreadsheet based on significant cutoff
 def saveFromCutoff(cutoff):
-    #instantiate empty list
+    #instantiate empty lists
     classifications = []
+    plusMinusList=[]
     for index, row in dataframe.iterrows():
         #define +/- (will be used to sort into negative / positive)
         onIceFor = dataframe.loc[index, 'OnIce_F_goals']
         onIceAgainst = dataframe.loc[index, 'OnIce_A_goals']
         plusMinus = onIceFor - onIceAgainst
+        plusMinusList.append(plusMinus)
         #define NDS (used to sort good/bad)
         negativeDS = dataframe.loc[index, 'NDS']
         #sort based on these values
@@ -86,8 +88,9 @@ def saveFromCutoff(cutoff):
         else:
             print("A row does not have a valid value needed to define")
             break
-    #add classification as new column in dataframe
+    #add classification and plus minus as new columns in dataframe
     dataframe['classification (NDS cutoff ' + str(cutoff) + ')'] = classifications
+    dataframe['+/-'] = plusMinusList
     #save excel spreadsheet
     dataframe.to_excel("C:/Users/Spencer/Desktop/NHL_Contract_Data_Scraper/Data/complete_2023-03-03.xlsx")
     print("file updated with classifications")
